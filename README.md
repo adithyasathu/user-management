@@ -5,7 +5,7 @@ This project manages user registration, activation and profile maintenance using
 
 ## Development
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and start the server.
 
 ```sh
 $ yarn install
