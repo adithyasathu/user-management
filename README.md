@@ -9,6 +9,7 @@ Install the dependencies and devDependencies and start the server.
 
 ```sh
 $ yarn install
+$ yarn build
 $ yarn start
 ```
  
