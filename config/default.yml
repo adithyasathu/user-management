@@ -1,0 +1,24 @@
+mongo:
+  connectionUrl: mongodb://localhost:27017/user-management
+  reconnectInterval: 1000
+email:
+  shouldSendConfirmation: true
+  use: mailhog
+  server:
+    service: XXX
+    user: XXXXXX@XXX.com
+    pass: XXXXXXXXX
+  mailhog:
+    host: localhost
+    port: 1025
+    secure: false
+  expirationTime: 86400
+  urlLength: 20
+  verificationBaseURL: http://localhost:8080/api/v1
+login:
+  secretKey: XXXXXX
+  tokenExpiry: 600
+service:
+  verifyToken: false
+  api:
+    port: 8080

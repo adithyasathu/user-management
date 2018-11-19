@@ -1,0 +1,38 @@
+version: "2"
+services:
+  mongo-user:
+    image: mongo:3.4
+    container_name: mongo-user
+    volumes:
+        - /data/db
+    ports:
+        - "27017:27017"
+    command: "--smallfiles"
+    logging:
+        driver: "json-file"
+        options:
+            max-size: "2m"
+            max-file: "2"
+
+  mongo-ui:
+    image: mongo-express
+    depends_on:
+      - mongo-user
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.hostname_override: container_name
+      io.rancher.scheduler.affinity:host_label: host_core=true
+    ports:
+      - 9005:8081/tcp
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: password
+      ME_CONFIG_MONGODB_SERVER: mongo-user
+
+  mailhog:
+      image: mailhog/mailhog:v1.0.0
+      ports:
+      - "1025:1025"
+      - "8025:8025"

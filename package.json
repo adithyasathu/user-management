@@ -1,0 +1,70 @@
+{
+  "name": "user-management",
+  "version": "1.0.0",
+  "description": "This project manages user registration, activation and profile maintenance using NodeJS + Typescript + Express + MongoDB + E-mail(GMail/SMTP)",
+  "license": "MIT",
+  "private": false,
+  "author": {
+    "name": "Adithya Sathu",
+    "email": "adithya.sathu@gmail.com"
+  },
+  "scripts": {
+    "build": "rm -rf build && tsc",
+    "test": "rm -rf coverage && NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha -r ts-node/register ./test/*.mocha.ts",
+    "start": "node index",
+    "prod": "yarn run build && yarn run start"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "config": "^2.0.1",
+    "core-js": "^2.4.1",
+    "email-verification": "^0.4.6",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.0",
+    "js-yaml": "^3.12.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.0.14",
+    "rand-token": "0.4.0",
+    "rxjs": "^5.4.2",
+    "simple-node-logger": "^0.93.37",
+    "typescript": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/config": "^0.0.32",
+    "@types/es6-promise": "^3.3.0",
+    "@types/express": "^4.16.0",
+    "@types/js-yaml": "^3.5.31",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.16",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^7.1.1",
+    "codelyzer": "^4.5.0",
+    "mocha": "^3.3.0",
+    "nyc": "^13.1.0",
+    "mockgoose": "^7.3.5",
+    "source-map-support": "^0.5.9",
+    "supertest": "^3.3.0",
+    "supertest-as-promised": "^4.0.2",
+    "ts-node": "^3.0.4",
+    "tslint": "^4.5.1"
+  }
+}

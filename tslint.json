@@ -1,0 +1,27 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "curly": true,
+    "variable-name": true,
+    "indent": [true, "spaces"],
+    "quotemark": [false],
+    "semicolon": [true, "always"],
+    "no-console": [true, "warn"],
+    "no-unused-variable": [true, {"ignore-pattern": "^_"}],
+    "no-use-before-declare": true,
+    "no-var-keyword": true,
+    "switch-default": true,
+    "object-literal-sort-keys": false,
+    "ordered-imports": [false],
+    "max-line-length": [false],
+    "mocha-avoid-only": true,
+    "mocha-avoid-skip": true
+  },
+  "rulesDirectory" : [
+    "node_modules/codelyzer"
+  ]
+}
