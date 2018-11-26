@@ -2,12 +2,13 @@
  * Created by adithya.sathu on 08/11/2018.
  */
 import * as Logger from "simple-node-logger";
-import {Server} from "./server";
+import { Server } from "./server";
 import * as mongoose from 'mongoose';
 import * as emailVerification from 'email-verification';
 import * as config from "config";
-import {User} from "./models/user";
+import { User } from "./models/user";
 import * as bcrypt from "bcryptjs";
+import * as http from "http";
 export const registrationClient = emailVerification(mongoose);
 export const log = Logger.createSimpleLogger();
 
@@ -115,10 +116,13 @@ export const registrationClientInit = async () => {
         log.info('generated temp user model: ' + (typeof tempUserModel === 'function'));
     });
 };
-
+let httpServer: http.Server = null;
 export const bootstrap = async () => {
-    mongoInit();
-    registrationClientInit();
+    if (!httpServer) {
+        await registrationClientInit();
+    }
+    await mongoInit();
     const server = new Server();
-    await server.start();
+    httpServer = await server.start();
+    return httpServer;
 };

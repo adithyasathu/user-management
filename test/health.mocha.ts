@@ -1,12 +1,12 @@
 import "mocha";
 import * as chai from 'chai';
 import * as http from "http";
-import {Server} from "../src/server";
+import { Server } from "../src/server";
 import * as cap from "chai-as-promised";
 import * as mongoose from "mongoose";
 import * as request from "supertest-as-promised";
-import {mongoInit} from "../src";
-import {IServer} from "../src/types";
+import { mongoInit } from "../src";
+import { IServer } from "../src/types";
 
 const expect = chai.expect;
 

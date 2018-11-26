@@ -2,12 +2,11 @@ import "mocha";
 import * as chai from 'chai';
 import * as http from "http";
 import * as mongoose from "mongoose";
-import {Server} from "../src/server";
-import {User} from "../src/models/user";
+import { User } from "../src/models/user";
 import * as cap from "chai-as-promised";
-import {REGISTER_USER} from "./mocks/mocks";
+import { REGISTER_USER } from "./mocks/mocks";
 import * as request from "supertest-as-promised";
-import {mongoInit, registrationClientInit} from "../src/index";
+import { bootstrap } from "../src/index";
 
 const expect = chai.expect;
 
@@ -16,9 +15,7 @@ describe('Registration Controller', () => {
     let server: http.Server = null;
 
     before(async () => {
-        await mongoInit();
-        await registrationClientInit();
-        server = await new Server().start();
+        server = await bootstrap();
     });
 
     after( async () => {
@@ -90,7 +87,7 @@ describe('Registration Controller', () => {
                 .expect(200)
                 .then((res) => {
                     expect(res.body).to.not.be.null;
-                    expect(res.body.msg).to.equal("An email has been sent to you. Please check it to verify your account.");
+                    expect(res.body.message).to.equal("An email has been sent to you. Please check it to verify your account.");
                 });
     });
 
@@ -98,7 +95,7 @@ describe('Registration Controller', () => {
         return request(server)
             .post(`/api/v1/sign-up`)
             .send(REGISTER_USER)
-            .expect(400)
+            .expect(500)
             .then((res) => {
                 expect(res.body).to.not.be.null;
                 expect(res.body.errorMessage).to.equal("You have already signed up. Please check your email to verify your account.");
@@ -112,7 +109,7 @@ describe('Registration Controller', () => {
         return request(server)
             .post(`/api/v1/sign-up`)
             .send(REGISTER_USER)
-            .expect(400)
+            .expect(500)
             .then((res) => {
                 expect(res.body).to.not.be.null;
                 expect(res.body.errorMessage).to.equal("You have already signed up and confirmed your account. Did you forget your password?");

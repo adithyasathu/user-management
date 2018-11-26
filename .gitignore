@@ -1,0 +1,15 @@
+# dependency
+node_modules
+
+# output folders
+build
+
+# LOG files
+*.log
+
+# nyc
+coverage
+.nyc_output
+
+# IDE
+.idea

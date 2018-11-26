@@ -1,0 +1,152 @@
+swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: User Management API
+
+basePath: /api/v1
+paths:
+  /health:
+    get:
+      description: |
+        Retrieve the health status of the API
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:   # Sample object
+              message: 'Server is up and running !!'
+        500:
+          description: Dependencies are not healthy
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:   # Sample object
+              errorMessage: "MongoDB isn't connected"
+  /sign-up:
+    post:
+      description: |
+        User registration request. User would receive an email to confirm his/her account for activation.
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+        500:
+          description: Server Error response
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:
+              errorMessage: You have already signed up. Please check your email to verify your account.
+
+        400:
+          description: Validation error
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                    param:
+                      type: string
+                    msg:
+                      type: string
+  /resend-email:
+    post:
+      description: |
+        User can request to resend verification email confirm to his/her email account.
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          required:
+          - email
+          properties:
+            email:
+              type: string
+          example:   # Sample object
+            email: firstname.lastname@gmail.com
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+        500:
+          description: Server Error response
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:
+              errorMessage: user not found for email-id provided
+
+        400:
+          description: Validation error
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                    param:
+                      type: string
+                    msg:
+                      type: string
+
+definitions:
+
+  User:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - email
+    - password
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    example:   # Sample object
+      firstName: firstname
+      lastName: lastname
+      email: firstname.lastname@gmail.com
+      password: superpass

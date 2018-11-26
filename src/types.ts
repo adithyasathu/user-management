@@ -15,3 +15,7 @@ export interface IRoutes {
 export interface IRegistrationController {
     registerUser(req: Request, res: Response);
 }
+
+export interface IResendEmailVerificationController {
+    resendEmail(req: Request, res: Response);
+}

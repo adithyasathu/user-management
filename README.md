@@ -13,11 +13,11 @@ $ yarn build
 $ yarn start
 ```
  
-By default the api is served on http://localhost:8080/api/v1/
+By default the api is served on http://localhost:8080/api/v1/docs
 
 ## Running unit tests
 
-Run `yarn test` to execute the unit tests via [Mocha](https://github.com/mochajs/mocha).
+Run `yarn test` to execute the unit tests via [Mocha](https://www.npmjs.com/package/mocha) with coverage [nyc](https://www.npmjs.com/package/nyc).
 
   
 ### Local setup using Docker: 
@@ -38,11 +38,12 @@ Run `yarn test` to execute the unit tests via [Mocha](https://github.com/mochajs
   * mongo-express - Web-based MongoDB admin interface
   
     Running on http://localhost:9005/
-    UserId: admin
-    password: password
+        UserId: admin
+        password: password
     
   * MailHog - To view and send test email's
     SMTP server starts on port 1025
-    HTTP server starts on port 8025, MailBox can be accessed on http://localhost:8025/ (you would be interested in this)
+    HTTP server starts on port 8025
+    MailBox can be accessed on http://localhost:8025/ (you would be interested in this)
    
 

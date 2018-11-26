@@ -1,10 +1,10 @@
 /**
  * Created by adithya.sathu on 08/11/2018.
  */
-import {IRegistrationController} from "../types";
+import { IRegistrationController } from "../types";
 import { Request, Response} from "express";
 import { User} from "../models/user";
-import {registrationClient, log} from "../index";
+import { registrationClient, log } from "../index";
 import { validationResult } from "express-validator/check";
 
 export class RegistrationController implements IRegistrationController {
@@ -25,7 +25,7 @@ export class RegistrationController implements IRegistrationController {
 
             // user already exists in persistent collection
             if (existingPersistentUser) {
-                return res.status(400).send({
+                return res.status(500).send({
                     errorMessage : 'You have already signed up and confirmed your account. Did you forget your password?',
                 });
             }
@@ -42,13 +42,13 @@ export class RegistrationController implements IRegistrationController {
                         });
                     }
                     res.json({
-                        msg: 'An email has been sent to you. Please check it to verify your account.',
+                        message: 'An email has been sent to you. Please check it to verify your account.',
                     });
 
                 });
                 // user already exists in temporary collection!
             } else {
-                return res.status(400).send({
+                return res.status(500).send({
                     errorMessage : 'You have already signed up. Please check your email to verify your account.',
                 });
             }

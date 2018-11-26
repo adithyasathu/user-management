@@ -6,3 +6,7 @@ export const signUpValidationRules = [
     check('email').isEmail().withMessage('No/Invalid Email is provided'),
     check('password').isLength({ min: 6 }).withMessage('Minimum 6 characters required'),
 ];
+
+export const resendEmailValidationRules = [
+    check('email').isEmail().withMessage('No/Invalid Email is provided'),
+];
