@@ -25,7 +25,7 @@ describe('Registration Controller', () => {
     });
 
     it("POST - Missing firstName - invalid request to register the user ", () => {
-        // tslint:disable: no-unused-variable
+
         const {firstName, ...rest} = REGISTER_USER;
         return request(server)
             .post(`/api/v1/sign-up`)
@@ -46,7 +46,6 @@ describe('Registration Controller', () => {
     });
 
     it("POST - Missing body - invalid request to register the user ", () => {
-        // tslint:disable: no-unused-variable
         return request(server)
             .post(`/api/v1/sign-up`)
             .send({})
@@ -87,7 +86,7 @@ describe('Registration Controller', () => {
                 .expect(200)
                 .then((res) => {
                     expect(res.body).to.not.be.null;
-                    expect(res.body.message).to.equal("An email has been sent to you. Please check it to verify your account.");
+                    expect(res.body.message).to.equal("An email has been sent to you. Please check it to verify your account");
                 });
     });
 
@@ -98,7 +97,7 @@ describe('Registration Controller', () => {
             .expect(500)
             .then((res) => {
                 expect(res.body).to.not.be.null;
-                expect(res.body.errorMessage).to.equal("You have already signed up. Please check your email to verify your account.");
+                expect(res.body.errorMessage).to.equal("You have already signed up. Please check your email to verify your account");
             });
     });
 
@@ -112,7 +111,7 @@ describe('Registration Controller', () => {
             .expect(500)
             .then((res) => {
                 expect(res.body).to.not.be.null;
-                expect(res.body.errorMessage).to.equal("You have already signed up and confirmed your account. Did you forget your password?");
+                expect(res.body.errorMessage).to.equal("You have already signed up and confirmed your account");
             });
     });
 

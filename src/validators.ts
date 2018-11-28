@@ -1,4 +1,4 @@
-import { check } from 'express-validator/check';
+import { check, param } from 'express-validator/check';
 
 export const signUpValidationRules = [
     check('firstName').isString().withMessage('firstName is required'),
@@ -9,4 +9,8 @@ export const signUpValidationRules = [
 
 export const resendEmailValidationRules = [
     check('email').isEmail().withMessage('No/Invalid Email is provided'),
+];
+
+export const confirmEmailValidationRules = [
+    param('id').isLength({ min: 20 , max: 20}).withMessage('Invalid verification ID provided'),
 ];

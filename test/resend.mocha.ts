@@ -11,8 +11,7 @@ const expect = chai.expect;
 
 chai.use(cap);
 // tslint:disable:only-arrow-functions
-describe('Resend Email Verification Controller', function resend () {
-    this.timeout(5000);
+describe('Resend Email Verification Controller', () => {
     let server: http.Server = null;
 
     before(async () => {
@@ -69,7 +68,7 @@ describe('Resend Email Verification Controller', function resend () {
             .expect(200)
             .then((res) => {
                 expect(res.body).to.not.be.null;
-                expect(res.body.message).to.equal("An email has been sent to you, yet again. Please check it to verify your account.");
+                expect(res.body.message).to.equal("An email has been sent to you, yet again. Please check it to verify your account");
             });
     });
 

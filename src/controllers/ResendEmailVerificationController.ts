@@ -24,7 +24,7 @@ export class ResendEmailVerificationController implements IResendEmailVerificati
             }
             if (userFound) {
                 res.json({
-                    message: 'An email has been sent to you, yet again. Please check it to verify your account.',
+                    message: 'An email has been sent to you, yet again. Please check it to verify your account',
                 });
             } else {
                 return res.status(500).send({

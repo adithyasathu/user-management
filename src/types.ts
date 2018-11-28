@@ -19,3 +19,7 @@ export interface IRegistrationController {
 export interface IResendEmailVerificationController {
     resendEmail(req: Request, res: Response);
 }
+
+export interface IConfirmEmailAccountController {
+    confirmEmail(req: Request, res: Response);
+}

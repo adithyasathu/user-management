@@ -10,7 +10,6 @@ email:
     secretKey: JWT_TOKEN_SECRET
     tokenExpiry: LOGIN_TOKEN_EXPIRY
   expirationTime: EMAIL_EXPIRATION_TIME
-  urlLength: EMAIL_GENERATED_URL_LENGTH
   verificationBaseURL: EMAIL_VERIFICATION_BASE_URL
 service:
   verifyToken: PROTECT_SERVICES_BY_TOKEN

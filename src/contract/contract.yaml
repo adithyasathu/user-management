@@ -61,19 +61,7 @@ paths:
         400:
           description: Validation error
           schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    location:
-                      type: string
-                    param:
-                      type: string
-                    msg:
-                      type: string
+            $ref: '#/definitions/Error'
   /resend-email:
     post:
       description: |
@@ -113,20 +101,40 @@ paths:
         400:
           description: Validation error
           schema:
+            $ref: '#/definitions/Error'
+  /email-verification/{id}:
+    get:
+      description: |
+        This service does the email account verification and activates the user.
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: ID of the user to verify the email account
+      responses:
+        200:
+          description: Successful response
+          schema:
             type: object
             properties:
-              errors:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    location:
-                      type: string
-                    param:
-                      type: string
-                    msg:
-                      type: string
-
+              message:
+                type: string
+            example:   # Sample object
+              message: 'Successfully confirmed the User Email Account !!'
+        400:
+          description: Valiation Error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Invalid/Expired Verification Id
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:   # Sample object
+              errorMessage: "Invalid/Expired Verification Id"
 definitions:
 
   User:
@@ -150,3 +158,26 @@ definitions:
       lastName: lastname
       email: firstname.lastname@gmail.com
       password: superpass
+
+  Error:
+    type: object
+    required:
+    - errors
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorDetails'
+
+
+  ErrorDetails:
+    type: object
+    properties:
+      location:
+        type: string
+      param:
+        type: string
+      msg:
+        type: string
+      value:
+        type: string

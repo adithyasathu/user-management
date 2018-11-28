@@ -77,7 +77,7 @@ export const registrationClientInit = async () => {
     registrationClient.configure({
         persistentUserModel: User,
         expirationTime: emailOptions.expirationTime, // in seconds by default 24 hours
-        URLLength: emailOptions.urlLength,
+        URLLength: 20,
 
         verificationURL: emailOptions.verificationBaseURL + "/${URL}",
         transportOptions,

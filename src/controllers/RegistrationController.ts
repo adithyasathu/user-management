@@ -26,7 +26,7 @@ export class RegistrationController implements IRegistrationController {
             // user already exists in persistent collection
             if (existingPersistentUser) {
                 return res.status(500).send({
-                    errorMessage : 'You have already signed up and confirmed your account. Did you forget your password?',
+                    errorMessage : 'You have already signed up and confirmed your account',
                 });
             }
 
@@ -42,14 +42,14 @@ export class RegistrationController implements IRegistrationController {
                         });
                     }
                     res.json({
-                        message: 'An email has been sent to you. Please check it to verify your account.',
+                        message: 'An email has been sent to you. Please check it to verify your account',
                     });
 
                 });
                 // user already exists in temporary collection!
             } else {
                 return res.status(500).send({
-                    errorMessage : 'You have already signed up. Please check your email to verify your account.',
+                    errorMessage : 'You have already signed up. Please check your email to verify your account',
                 });
             }
         });
