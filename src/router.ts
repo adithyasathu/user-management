@@ -6,7 +6,12 @@ import {IRoutes} from "./types";
 import * as mongoose from 'mongoose';
 import * as swaggerUI from "swagger-ui-express";
 import { controllers } from "./controllers";
-import {confirmEmailValidationRules, resendEmailValidationRules, signUpValidationRules} from "./validators";
+import {
+    confirmEmailValidationRules,
+    loginValidationRules,
+    resendEmailValidationRules,
+    signUpValidationRules,
+} from "./validators";
 import contract from "./contract";
 
 export class Routes implements IRoutes {
@@ -35,6 +40,8 @@ export class Routes implements IRoutes {
         router.post("/resend-email", resendEmailValidationRules, controllers.resendEmail.resendEmail);
 
         router.get("/email-verification/:id", confirmEmailValidationRules, controllers.confirmEmail.confirmEmail);
+
+        router.post("/login", loginValidationRules, controllers.login.loginUser);
 
         router.use('/docs', swaggerUI.serve, swaggerUI.setup(contract));
 

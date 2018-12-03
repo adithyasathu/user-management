@@ -23,3 +23,7 @@ export interface IResendEmailVerificationController {
 export interface IConfirmEmailAccountController {
     confirmEmail(req: Request, res: Response);
 }
+
+export interface ILoginController {
+    loginUser(req: Request, res: Response);
+}

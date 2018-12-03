@@ -3,14 +3,19 @@ import { check, param } from 'express-validator/check';
 export const signUpValidationRules = [
     check('firstName').isString().withMessage('firstName is required'),
     check('lastName').isString().withMessage('lastName is required'),
-    check('email').isEmail().withMessage('No/Invalid Email is provided'),
-    check('password').isLength({ min: 6 }).withMessage('Minimum 6 characters required'),
+    check('email').isEmail().withMessage('Invalid Email is provided'),
+    check('password').isLength({ min: 6 }).withMessage('Password must contain at least six characters'),
 ];
 
 export const resendEmailValidationRules = [
-    check('email').isEmail().withMessage('No/Invalid Email is provided'),
+    check('email').isEmail().withMessage('Invalid Email is provided'),
 ];
 
 export const confirmEmailValidationRules = [
     param('id').isLength({ min: 20 , max: 20}).withMessage('Invalid verification ID provided'),
+];
+
+export const loginValidationRules = [
+    check('email').isEmail().withMessage('Invalid Email is provided'),
+    check('password').isString().withMessage('Password is required'),
 ];

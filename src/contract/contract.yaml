@@ -135,6 +135,62 @@ paths:
                 type: string
             example:   # Sample object
               errorMessage: "Invalid/Expired Verification Id"
+
+  /login:
+    post:
+      description: |
+        User login with email and password.
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          required:
+          - email
+          - password
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+          example:   # Sample object
+            email: firstname.lastname@gmail.com
+            password: superpass
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+
+        401:
+          description: Unauthenticated User
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:
+              errorMessage: invalid credentials
+
+        500:
+          description: Server Error response
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:
+              errorMessage: user not found for email-id provided
+
+        400:
+          description: Valiation Error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
 
   User:

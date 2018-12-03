@@ -25,7 +25,7 @@ describe('Registration Controller', () => {
     });
 
     it("POST - Missing firstName - invalid request to register the user ", () => {
-
+        // tslint:disable:no-unused-variable
         const {firstName, ...rest} = REGISTER_USER;
         return request(server)
             .post(`/api/v1/sign-up`)
@@ -67,12 +67,12 @@ describe('Registration Controller', () => {
                         {
                             location: "body",
                             param: "email",
-                            msg: "No/Invalid Email is provided",
+                            msg: "Invalid Email is provided",
                         },
                         {
                             location: "body",
                             param: "password",
-                            msg: "Minimum 6 characters required",
+                            msg: "Password must contain at least six characters",
                         },
                     ],
                 });

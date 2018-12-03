@@ -37,7 +37,7 @@ describe('Resend Email Verification Controller', () => {
                         {
                             location: "body",
                             param: "email",
-                            msg: "No/Invalid Email is provided",
+                            msg: "Invalid Email is provided",
                         },
                     ],
                 });
