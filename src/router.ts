@@ -11,6 +11,7 @@ import {
     loginValidationRules,
     resendEmailValidationRules,
     signUpValidationRules,
+    verifyTokenValidationRules,
 } from "./validators";
 import contract from "./contract";
 
@@ -42,6 +43,8 @@ export class Routes implements IRoutes {
         router.get("/email-verification/:id", confirmEmailValidationRules, controllers.confirmEmail.confirmEmail);
 
         router.post("/login", loginValidationRules, controllers.login.loginUser);
+
+        router.get("/validate-token", verifyTokenValidationRules, controllers.verifyToken.validateToken);
 
         router.use('/docs', swaggerUI.serve, swaggerUI.setup(contract));
 

@@ -191,6 +191,47 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
+  /validate-token:
+    get:
+      description: |
+        Validates the user token.
+      parameters:
+      - in: header
+        name: Authorization
+        type: string
+        required: true
+        description: User token
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              iat:
+                type: string
+              exp:
+                type: string
+            example:   # Sample object
+              email: firstname.lastname@gmail.com
+              iat: 1543807231
+              exp: 1543807831
+
+        400:
+          description: Valiation Error
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Invalid/Expired Verification Id
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:   # Sample object
+              errorMessage: "Invalid/Expired Verification Id"
+
 definitions:
 
   User:

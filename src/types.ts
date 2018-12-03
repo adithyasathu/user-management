@@ -27,3 +27,7 @@ export interface IConfirmEmailAccountController {
 export interface ILoginController {
     loginUser(req: Request, res: Response);
 }
+
+export interface IVerifyTokenController {
+    validateToken(req: Request, res: Response);
+}

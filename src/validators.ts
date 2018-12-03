@@ -1,4 +1,4 @@
-import { check, param } from 'express-validator/check';
+import { check, param, header } from 'express-validator/check';
 
 export const signUpValidationRules = [
     check('firstName').isString().withMessage('firstName is required'),
@@ -18,4 +18,8 @@ export const confirmEmailValidationRules = [
 export const loginValidationRules = [
     check('email').isEmail().withMessage('Invalid Email is provided'),
     check('password').isString().withMessage('Password is required'),
+];
+
+export const verifyTokenValidationRules = [
+    header('Authorization').matches(/(Bearer)\s/i).withMessage('Valid Authorization Token is required'),
 ];
