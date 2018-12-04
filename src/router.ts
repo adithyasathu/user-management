@@ -6,14 +6,14 @@ import {IRoutes} from "./types";
 import * as mongoose from 'mongoose';
 import * as swaggerUI from "swagger-ui-express";
 import { controllers } from "./controllers";
+import contract from "./contract";
 import {
     confirmEmailValidationRules,
     loginValidationRules,
     resendEmailValidationRules,
     signUpValidationRules,
-    verifyTokenValidationRules,
+    tokenValidationRules,
 } from "./validators";
-import contract from "./contract";
 
 export class Routes implements IRoutes {
 
@@ -44,7 +44,9 @@ export class Routes implements IRoutes {
 
         router.post("/login", loginValidationRules, controllers.login.loginUser);
 
-        router.get("/validate-token", verifyTokenValidationRules, controllers.verifyToken.validateToken);
+        router.get("/validate-token", tokenValidationRules, controllers.verifyToken.validateToken);
+
+        router.get("/refresh-token", tokenValidationRules, controllers.refreshToken.refreshToken);
 
         router.use('/docs', swaggerUI.serve, swaggerUI.setup(contract));
 

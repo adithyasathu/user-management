@@ -31,3 +31,9 @@ export interface ILoginController {
 export interface IVerifyTokenController {
     validateToken(req: Request, res: Response);
 }
+
+export interface IRefreshTokenController {
+    refreshToken(req: Request, res: Response);
+}
+
+

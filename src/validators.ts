@@ -20,6 +20,6 @@ export const loginValidationRules = [
     check('password').isString().withMessage('Password is required'),
 ];
 
-export const verifyTokenValidationRules = [
+export const tokenValidationRules = [
     header('Authorization').matches(/(Bearer)\s/i).withMessage('Valid Authorization Token is required'),
 ];

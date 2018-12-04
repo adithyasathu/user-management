@@ -163,8 +163,16 @@ paths:
           schema:
             type: object
             properties:
-              message:
+              token:
                 type: string
+              expiresInSec:
+                type: number
+              email:
+                type: string
+            example:   # Sample object
+              email: firstname.lastname@gmail.com
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpcnN0bmFtZS5sYXN0bmFtZUBnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE1NDM4MDcyMzE2ODcsImlhdCI6MTU0MzgwNzIzMSwiZXhwIjoxNTQzODA3ODMxfQ.EoZWV5eQjiT5eP-eUn3Sqx5UqWDjyj83qVD5ityD9t0
+              expiresInSec: 600
 
         401:
           description: Unauthenticated User
@@ -222,15 +230,56 @@ paths:
           description: Valiation Error
           schema:
             $ref: '#/definitions/Error'
-        500:
-          description: Invalid/Expired Verification Id
+        401:
+          description: Invalid/Expired Token
           schema:
             type: object
             properties:
               errorMessage:
                 type: string
             example:   # Sample object
-              errorMessage: "Invalid/Expired Verification Id"
+              errorMessage: "jwt expired"
+
+  /refresh-token:
+    get:
+      description: |
+        Validates the user token and responds with new token.
+      parameters:
+      - in: header
+        name: Authorization
+        type: string
+        required: true
+        description: User token
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+              expiresInSec:
+                type: number
+              email:
+                type: string
+            example:   # Sample object
+              email: firstname.lastname@gmail.com
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpcnN0bmFtZS5sYXN0bmFtZUBnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE1NDM4MDcyMzE2ODcsImlhdCI6MTU0MzgwNzIzMSwiZXhwIjoxNTQzODA3ODMxfQ.EoZWV5eQjiT5eP-eUn3Sqx5UqWDjyj83qVD5ityD9t0
+              expiresInSec: 600
+
+        400:
+          description: Valiation Error
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Invalid/Expired Token
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+            example:   # Sample object
+              errorMessage: "jwt expired"
 
 definitions:
 

@@ -11,7 +11,7 @@ import {ACTIVE_USER} from "./mocks/mocks";
 const expect = chai.expect;
 
 chai.use(cap);
-describe('Verify Token Controller', () => {
+describe('Refresh Token Controller', () => {
     let server: http.Server = null;
 
     before(async () => {
@@ -26,7 +26,7 @@ describe('Verify Token Controller', () => {
 
     it("GET - Missing Token ", () => {
         return request(server)
-            .get(`/api/v1/validate-token`)
+            .get(`/api/v1/refresh-token`)
             .expect(400)
             .then((res) => {
                 expect(res.body).to.not.be.null;
@@ -45,7 +45,7 @@ describe('Verify Token Controller', () => {
 
     it("GET - Invalid Token ", () => {
         return request(server)
-            .get(`/api/v1/validate-token`)
+            .get(`/api/v1/refresh-token`)
             .set('Authorization', 'token007')
             .expect(400)
             .then((res) => {
@@ -66,9 +66,9 @@ describe('Verify Token Controller', () => {
 
     it("GET - Malformed Token ", () => {
         return request(server)
-            .get(`/api/v1/validate-token`)
+            .get(`/api/v1/refresh-token`)
             .set('Authorization', 'Bearer token007')
-            .expect(400)
+            .expect(401)
             .then((res) => {
                 expect(res.body).to.not.be.null;
                 expect(res.body).to.deep.equal(
@@ -80,9 +80,9 @@ describe('Verify Token Controller', () => {
 
     it("GET - Expired Token ", () => {
         return request(server)
-            .get(`/api/v1/validate-token`)
+            .get(`/api/v1/refresh-token`)
             .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZpcnN0bmFtZS5sYXN0bmFtZUBnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE1NDM4MDcyMzE2ODcsImlhdCI6MTU0MzgwNzIzMSwiZXhwIjoxNTQzODA3ODMxfQ.EoZWV5eQjiT5eP-eUn3Sqx5UqWDjyj83qVD5ityD9t0')
-            .expect(400)
+            .expect(401)
             .then((res) => {
                 expect(res.body).to.not.be.null;
                 expect(res.body).to.deep.equal(
@@ -106,7 +106,7 @@ describe('Verify Token Controller', () => {
             });
     });
 
-    it("GET - Valid Token verified", async () => {
+    it("GET - Valid Token - Refreshed", async () => {
 
         await new User(ACTIVE_USER).save();
 
@@ -115,13 +115,13 @@ describe('Verify Token Controller', () => {
             .send({email: "firstname.lastname@gmail.com", password: "superpass"});
 
         return request(server)
-            .get(`/api/v1/validate-token`)
+            .get(`/api/v1/refresh-token`)
             .set('Authorization', `Bearer ${signIn.body.token}`)
             .expect(200)
             .then((res) => {
                 expect(res.body).to.not.be.null;
-                expect(res.body.iat).to.not.be.null;
-                expect(res.body.exp).to.not.be.null;
+                expect(res.body.expiresInSec).to.be.eq(600);
+                expect(res.body.token).to.not.be.null;
                 expect(res.body.email).to.be.equal("firstname.lastname@gmail.com");
             });
     });
